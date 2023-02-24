@@ -1,0 +1,27 @@
+﻿@model Recrutement.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Administratio | Login";
+}
+
+<h1>Login</h1>
+
+<form class="ui form" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+  <div class="field">
+        <label>Username</label>
+    <input asp-for="UserName" name="username" placeholder="Username" />
+    <span asp-validation-for="UserName" class="text-danger"></span>
+  </div>
+  <div class="field">
+    <label>Password</label>
+    <input asp-for="Password" name="password" placeholder="Password" />
+    <span asp-validation-for="Password" class="text-danger"></span>
+  </div>
+  <div class="field">
+    <div class="ui checkbox">
+      <input asp-for="RememberMe" type="checkbox" tabindex="0" class="hidden">
+      <label asp-for="RememberMe">@Html.DisplayNameFor(m => m.RememberMe)</label>
+    </div>
+  </div>
+  <button class="ui button" type="submit">Login</button>
+</form>

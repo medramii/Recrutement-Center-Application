@@ -1,0 +1,80 @@
+﻿@model Recrutement.Models.Application
+
+@{
+    ViewData["Title"] = "Application Details";
+}
+
+<h1>Application Details</h1>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.firstName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.firstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.lastName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.lastName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.phone)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.phone)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.educationLevel)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.educationLevel)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.yearsOfExperience)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.yearsOfExperience)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.lastEmployer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.lastEmployer)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.resume)
+        </dt>
+        <dd class = "col-sm-10">
+            @{
+                string projectDirectory = System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+                string folderPath = projectDirectory + "/Applications" + "/" + Model.firstName + Model.lastName;
+                string filePath = folderPath + "/resume.pdf";
+            }
+            <button class="ui button" onclick="openResume('@filePath')">Show Resume</button>
+        </dd>
+    </dl>
+</div>
+<div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Delete" class="ui button negative" />
+        <a asp-action="Index" class="ui button outline">Back to List</a>
+    </form>
+</div>
+
+<script>
+    function openResume(link){
+        debugger
+        window.open(link);
+    }
+</script>

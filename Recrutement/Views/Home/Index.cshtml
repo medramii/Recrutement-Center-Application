@@ -1,0 +1,121 @@
+﻿@model Recrutement.ViewModels.NewApplication
+
+@{
+    ViewData["Title"] = "Recrutement Center | Home";
+}
+<style>
+    body {
+        color: #34495E;
+        font-size: 17px;
+        background-image: url(https://subtlepatterns.com/patterns/kindajean.png);
+    }
+
+    .flat-butt {
+        display: inline-block;
+        margin: 0 5px;
+        border-radius: 6px;
+        font-family: "Lato", sans-serif;
+        font-size: 16.5px;
+        padding: 12px 20px;
+        border: 0;
+        background: #34495E;
+        color: #FFF;
+        cursor: pointer;
+        outline: 0;
+        width: 500px;
+        text-decoration: none;
+    }
+
+    .flat-butt:hover {
+        background: #005580;
+    }
+</style>
+
+<div class="text-center container">
+    <h1 class="display-4">Welcome To Romerro Recrutement Center</h1>
+    <br />
+    <button class="flat-butt" asp-area="" onclick="handleApplyClick()">Apply Now!</button>
+</div>
+
+<!-- Modal -->
+<div class="ui modal" style="height: fit-content; width: 60% !important; left: 20%; margin: 3em auto !important;">
+    <i class="close icon"></i>
+    
+    <form method="post" enctype="multipart/form-data" class="ui form" style="padding: 2em !important" asp-controller="Applications" asp-action="Apply" onsubmit="handleSubmit()">
+        <div class="two fields">
+            <div class="field">
+                @Html.LabelFor(model => model.application.firstName, "First Name")
+                @Html.EditorFor(model => model.application.firstName, new { htmlAttributes = new { @data_val="true", @required="required" }})
+                @Html.ValidationMessageFor(model => model.application.firstName, "", new {@class = "text-danger"})
+            </div>
+            <div class="field">
+                @Html.LabelFor(model => model.application.lastName, "Last Name")
+                @Html.EditorFor(model => model.application.lastName, new { htmlAttributes = new { @data_val="true", @required="required" }})
+                @Html.ValidationMessageFor(model => model.application.lastName, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                @Html.LabelFor(model => model.application.email, "Email")
+                @Html.EditorFor(model => model.application.email, new { htmlAttributes = new { @data_val="true", @required="required" }})
+                @Html.ValidationMessageFor(model => model.application.email, "", new {@class = "text-danger"})
+            </div>
+            <div class="field">
+                @Html.LabelFor(model => model.application.phone, "Phone Number")
+                @Html.EditorFor(model => model.application.phone, new { htmlAttributes = new { type="tel", @data_val="true", @required="required" }})
+                @Html.ValidationMessageFor(model => model.application.phone, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        <div class="three fields">
+            <div class="field">
+                @Html.LabelFor(model => model.application.educationLevel, "Education Level")
+                @Html.EditorFor(model => model.application.educationLevel, new { htmlAttributes = new { @data_val="true", @required="required" }})
+                @Html.ValidationMessageFor(model => model.application.educationLevel, "", new {@class = "text-danger"})
+            </div>
+
+            <div class="field">
+                @Html.LabelFor(model => model.application.yearsOfExperience, "Number Of Years Of Experience")
+                @Html.EditorFor(model => model.application.yearsOfExperience, new { htmlAttributes = new { @data_val="true", @required="required", @min=0,@max=20 }})
+                @Html.ValidationMessageFor(model => model.application.yearsOfExperience, "", new {@class = "text-danger"})
+            </div>
+            <div class="field">
+                @Html.LabelFor(model => model.application.lastEmployer, "Last Employer (Work Company)")
+                @Html.EditorFor(model => model.application.lastEmployer, new { htmlAttributes = new { @data_val="true", @required="required" }})
+                @Html.ValidationMessageFor(model => model.application.lastEmployer, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        <div class="field">
+            <label asp-for="ResumeFile">Resume (PDF)</label>
+            <div class="ui left icon input">
+                <input asp-for="ResumeFile" type="file" data_val="true" required="required" placeholder="Upload your resume..." accept="application/pdf" />
+                <i class="file icon"></i>
+            </div>
+            <span asp-validation-for="ResumeFile" class="text-danger"></span>
+        </div>
+
+        @Html.HiddenFor(model => model.application.id)
+
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        <div class="actions" style="text-align: end;">
+            <button class="ui black deny button" asp-action="Index">
+                Cancel
+            </button>
+            <button type="submit" class="ui primary right labeled icon button">
+                Apply
+                <i class="checkmark icon"></i>
+            </button>
+        </div>
+      
+    </form>
+</div>
+
+<script>
+    function handleApplyClick(){
+        $('.ui.modal').modal('show');
+    }
+    function handleSubmit(){
+        $('.ui.modal').modal('hide');
+    }
+    
+</script>
+
